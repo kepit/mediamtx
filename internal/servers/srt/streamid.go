@@ -79,8 +79,8 @@ func (s *streamID) unmarshal(raw string) error {
 			s.mode = streamIDModePublish
 
 		default:
-			s.mode = streamIDModeRead
-			parts = append([]string{"read"}, parts...)
+			s.mode = streamIDModePublish
+			parts = append([]string{"publish"}, parts...)
 		}
 
 		s.path = parts[1]
