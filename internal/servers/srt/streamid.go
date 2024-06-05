@@ -64,9 +64,10 @@ func (s *streamID) unmarshal(raw string) error {
 		}
 	} else {
 		parts := strings.Split(raw, ":")
-		if len(parts) < 2 || len(parts) > 5 {
-			return fmt.Errorf("stream ID must be 'action:pathname[:query]' or 'action:pathname:user:pass[:query]', " +
-				"where action is either read or publish, pathname is the path name, user and pass are the credentials, " +
+		if len(parts) < 1 || len(parts) > 5 {
+			return fmt.Errorf("stream ID must be '[action:]pathname[:query]' or '[action:]pathname:user:pass[:query]', " +
+				"where pathname is the path name, user and pass are the credentials, " +
+				"action is an optional (default: read), " +
 				"query is an optional token containing additional information")
 		}
 
@@ -78,9 +79,8 @@ func (s *streamID) unmarshal(raw string) error {
 			s.mode = streamIDModePublish
 
 		default:
-			return fmt.Errorf("stream ID must be 'action:pathname[:query]' or 'action:pathname:user:pass[:query]', " +
-				"where action is either read or publish, pathname is the path name, user and pass are the credentials, " +
-				"query is an optional token containing additional information")
+			s.mode = streamIDModeRead
+			parts = append([]string{"read"}, parts...)
 		}
 
 		s.path = parts[1]

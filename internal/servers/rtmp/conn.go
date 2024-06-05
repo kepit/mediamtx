@@ -32,11 +32,13 @@ import (
 var errNoSupportedCodecs = errors.New(
 	"the stream doesn't contain any supported codec, which are currently H264, MPEG-4 Audio, MPEG-1/2 Audio")
 
+
 func pathNameAndQuery(inURL *url.URL) (string, url.Values, string) {
 	// remove leading and trailing slashes inserted by OBS and some other clients
 	tmp := strings.TrimRight(inURL.String(), "/")
 	ur, _ := url.Parse(tmp)
-	pathName := strings.TrimLeft(ur.Path, "/")
+	parts := strings.Split(strings.TrimLeft(ur.Path, "/"), "/")
+	pathName := parts[len(parts)-1]
 	return pathName, ur.Query(), ur.RawQuery
 }
 
