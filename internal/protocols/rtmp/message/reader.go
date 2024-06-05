@@ -51,6 +51,12 @@ func allocateMessage(raw *rawmessage.Message) (Message, error) {
 		case UserControlTypePingResponse:
 			return &UserControlPingResponse{}, nil
 
+		case UserControlTypeThrottleBegin:
+			return &UserControlThrottleBegin{}, nil
+
+		case UserControlTypeThrottleEnd:
+			return &UserControlThrottleEnd{}, nil
+
 		default:
 			return nil, fmt.Errorf("invalid user control type: %v", userControlType)
 		}

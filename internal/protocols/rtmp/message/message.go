@@ -45,6 +45,8 @@ const (
 	UserControlTypeStreamIsRecorded UserControlType = 4
 	UserControlTypePingRequest      UserControlType = 6
 	UserControlTypePingResponse     UserControlType = 7
+	UserControlTypeThrottleBegin    UserControlType = 31
+	UserControlTypeThrottleEnd      UserControlType = 32
 )
 
 // ExtendedType is a message extended type.
